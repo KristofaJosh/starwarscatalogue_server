@@ -45,6 +45,16 @@
   }
 }
 
+# view comments
+{
+  comments{
+    episode
+    ip
+    comment
+    created_at
+  }
+}
+
 ... and more
 visit the playground
 ```

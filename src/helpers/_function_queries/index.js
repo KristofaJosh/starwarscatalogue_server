@@ -3,16 +3,18 @@ module.exports.orderBy = (list, sortBy, flow = 'asc', step = undefined) => {
 
     console.log('sortBy: ', sortBy, '. flow: ', flow, '. step: ', step);
 
+
     if (step) {
         list = list[0][step];
     }
-
     let result = sortBy ?
         list.sort((a, b) => flow === 'asc' ?
             a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]) : flow === 'dsc' ?
             list.sort((a, b) => a - b) : list;
 
-    return [{[step]: result, meta_data: {}}]
+    return step ? [{[step]: result, meta_data: {}}] : result
+
+
 };
 
 module.exports.filterBy = (list, filter, value = '', step) => {
@@ -32,7 +34,12 @@ module.exports.filterBy = (list, filter, value = '', step) => {
 module.exports.mergeComments = async (_list) => {
     let comments = await get_all_comments();
 
+    if (_list[0].hasOwnProperty('character_data')) {
+        _list = _list[0]['character_data']
+    }
+
     console.log('merge comments ...');
+
     let list = await _list.slice();
     list['total_comments'] = 0;
     for (let movie of list) {
@@ -51,9 +58,7 @@ module.exports.mergeComments = async (_list) => {
 
 
 module.exports.metaData = (list) => {
-    console.log('calculate metaData ...');
-
-    console.log('meta: ', list);
+    console.log('calculate metaData and merge ...');
 
     const toFt = (va) => parseInt(va) / 30.48;
 
@@ -70,6 +75,5 @@ module.exports.metaData = (list) => {
         }
     }
 
-    // console.log(list);
     return list
 };

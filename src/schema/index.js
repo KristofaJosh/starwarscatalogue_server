@@ -22,8 +22,9 @@ const RootQuery = new GraphQLObjectType({
             description: 'Returns all MOVIES data sorted by release date',
             type: GraphQLList(Movies),
             resolve: async () => {
-                const {data: {results}} = await axios.get('films/');
-                return await mergeComments(orderBy(results, 'release_date', 'asc'));
+                const {data: {results: data}} = await axios.get('films/');
+                let results = [{character_data: data, meta_data: {}}];
+                return await mergeComments(orderBy(results, 'release_date', 'asc', 'character_data'));
             }
         },
         comments: {
@@ -40,8 +41,8 @@ const RootQuery = new GraphQLObjectType({
             args: {sort: {type: SortIType}, gender: {type: CharacterByGenderIType},},
             resolve: async (parent, args,) => {
                 let tempData = [];
-                let {data: {results:data}} = await axios.get('people/');
-                let results = [{character_data: data, meta_data:{}}];
+                let {data: {results: data}} = await axios.get('people/');
+                let results = [{character_data: data, meta_data: {}}];
                 const {sort, gender} = args;
 
                 // return if no parameter passed
