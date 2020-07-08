@@ -50,22 +50,17 @@ const RootQuery = new GraphQLObjectType({
                 }
 
 
-                if (args.hasOwnProperty('sort') && !tempData) {
+                if (args.hasOwnProperty('sort') && tempData.length < 1) {
                     tempData = orderBy(results, sort.name, sort.flow, 'character_data')
                 } else if (args.hasOwnProperty('sort')) {
                     tempData = orderBy(tempData, sort.name, sort.flow, 'character_data')
                 }
 
-                if (args.hasOwnProperty('gender') && !tempData) {
+                if (args.hasOwnProperty('gender') && tempData.length < 1) {
                     tempData = filterBy(results, 'gender', gender, 'character_data')
                 } else if (args.hasOwnProperty('gender')) {
                     tempData = filterBy(tempData, 'gender', gender, 'character_data')
                 }
-
-                // if (tempData){
-                //     tempData = [{...tempData[0],extras: {total_characters: '40', total_height:{cm:'40', feet:'30', inches:'20'}}}]
-                // }
-
 
                 return metaData(tempData)
             }

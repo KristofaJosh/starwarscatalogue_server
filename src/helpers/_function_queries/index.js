@@ -1,36 +1,33 @@
 const {get_all_comments} = require("../db_queries");
 module.exports.orderBy = (list, sortBy, flow = 'asc', step = undefined) => {
 
-    console.log('sorting ...');
     console.log('sortBy: ', sortBy, '. flow: ', flow, '. step: ', step);
 
     if (step) {
         list = list[0][step];
     }
 
-    console.log(list);
-
-
-    return sortBy ?
+    let result = sortBy ?
         list.sort((a, b) => flow === 'asc' ?
             a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]) : flow === 'dsc' ?
-            list.sort((a, b) => a - b) : list
+            list.sort((a, b) => a - b) : list;
+
+    return [{[step]: result, meta_data: {}}]
 };
 
-module.exports.filterBy = (list, filter, value = '') => {
+module.exports.filterBy = (list, filter, value = '', step) => {
 
-    console.log('filter ...');
-    console.log('filter: ', filter, '==: ', value);
+    if (step) {
+        list = list[0][step];
+    }
 
-    return list.filter(el => el[filter] === value)
+    console.log('filter: ', filter, '==: ', value, 'step: ', step);
+
+    let result = list.filter(el => el[filter] === value);
+
+    return [{[step]: result, meta_data: {}}]
 };
 
-const sumNum = (list, filter) => {
-    console.log('reduce ...');
-    console.log('sum params: ', filter);
-
-    return list.reduce((acc, el) => acc += parseInt(el.height), 0)
-};
 
 module.exports.mergeComments = async (_list) => {
     let comments = await get_all_comments();
@@ -56,9 +53,11 @@ module.exports.mergeComments = async (_list) => {
 module.exports.metaData = (list) => {
     console.log('calculate metaData ...');
 
-    const toFt = (va) => parseInt(va)/30.48;
+    console.log('meta: ', list);
 
-    const toInch = (va) => parseInt(va)/2.54;
+    const toFt = (va) => parseInt(va) / 30.48;
+
+    const toInch = (va) => parseInt(va) / 2.54;
 
 
     for (let el of list) {
