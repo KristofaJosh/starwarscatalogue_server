@@ -11,7 +11,58 @@
 
 <h1>Hey There!!</h1>
 <h3>You just reached Joshua Christopher StarWars API</h3>
-<h3>click here for documentation and usage</h3>
+<h3>click <a href="">here</a> to goto playground </h3>
+<h3>Basic Usage:</h3>
+<pre>
+{
+  characters{
+    character_data{
+      name
+      height
+      gender
+    }
+    meta_data{
+      total_height{
+        cm
+        inches
+        feet
+      }
+      total_characters
+    }
+
+  }
+}
+
+
+{
+  movies{
+    title
+    episode_id
+    comment_count
+  }
+
+}
+
+
+
+mutation{
+  comment(comment:{episode:"3", comment:"another new comment"}){
+    episode
+    ip
+    created_at
+  }
+}
+
+
+{
+  comments{
+    episode
+    ip
+    comment
+    created_at
+  }
+}
+</pre>
 
 <footer>
     made with love by chrisjosh
