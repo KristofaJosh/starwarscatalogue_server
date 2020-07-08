@@ -13,8 +13,6 @@ module.exports.orderBy = (list, sortBy, flow = 'asc', step = undefined) => {
             list.sort((a, b) => a - b) : list;
 
     return step ? [{[step]: result, meta_data: {}}] : result
-
-
 };
 
 module.exports.filterBy = (list, filter, value = '', step) => {
@@ -22,12 +20,10 @@ module.exports.filterBy = (list, filter, value = '', step) => {
     if (step) {
         list = list[0][step];
     }
-
     console.log('filter: ', filter, '==: ', value, 'step: ', step);
-
     let result = list.filter(el => el[filter] === value);
 
-    return [{[step]: result, meta_data: {}}]
+    return step ? [{[step]: result, meta_data: {}}] : result
 };
 
 
