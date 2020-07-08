@@ -1,0 +1,21 @@
+version: '2.2'
+services:
+  api:
+    build: .
+    command: yarn start
+    volumes:
+      - .:/server
+      - ./node_modules:/server/node_modules
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_DB: starwars
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+volumes:
+  node-modules:
