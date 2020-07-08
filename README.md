@@ -6,6 +6,7 @@
 - Graphql
 
 #### You can consume the [REST API wrapped with GraphQL](https://swapi-chrisjosh-starwars.herokuapp.com/)
+##### Reach me @ [Chris Josh](https://joshuachristopher.netlify.app/)
 #### Documentation is on Graphqli Playground
 ##### Queries
 ```
