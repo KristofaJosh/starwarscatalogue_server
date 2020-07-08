@@ -8,12 +8,24 @@
     <title>StarWars Catalogue</title>
 </head>
 <body>
+<script>
+  function gotoPlayground(){
+    let fPath = document.URL+'graphql';
+    let path = window.location.href+'graphql';
+    window.location.replace(fPath || path)
+  }
+</script>
 
 <h1>Hey There!!</h1>
 <h3>You just reached Joshua Christopher StarWars API</h3>
-<h3>click <a href="">here</a> to goto playground </h3>
+<h3>click <a href="javascript:gotoPlayground()">here</a> to goto playground </h3>
 <h3>Basic Usage:</h3>
-<pre>
+
+
+<fieldset>
+    <h4>Characters</h4>
+    <strong>Get with meta_data and characters properties</strong>
+    <pre>
 {
   characters{
     character_data{
@@ -32,8 +44,42 @@
 
   }
 }
+</pre>
+    <strong>Get characters by sort</strong>
+    <pre>
+
+{
+  characters(sort: height_asc){
+    character_data{
+      name
+      height
+    }
+  }
+}
+</pre>
+    <strong>Get characters by gender filter</strong>
+    <pre>
+{
+  characters(gender: male){
+    character_data{
+      name
+      gender
+      height
+    }
+  }
+}
+</pre>
+    <strong>You can use both sort and filter</strong>
+  characters(gender: male, sort: height_asc){
+  ...
+  }
+</fieldset>
 
 
+<fieldset>
+    <h4>Movies</h4>
+    <strong>Get movies</strong>
+    <pre>
 {
   movies{
     title
@@ -42,18 +88,24 @@
   }
 
 }
+</pre>
+</fieldset>
 
 
-
-mutation{
+<fieldset>
+    <strong>Add Comment</strong>
+    <pre>
+mutation {
   comment(comment:{episode:"3", comment:"another new comment"}){
     episode
     ip
     created_at
   }
 }
+</pre>
 
-
+  <strong>View Comments</strong>
+<pre>
 {
   comments{
     episode
@@ -63,6 +115,10 @@ mutation{
   }
 }
 </pre>
+</fieldset>
+
+
+
 
 <footer>
     made with love by chrisjosh
