@@ -72,6 +72,14 @@ mutation{
 }
 ```
 
+### Usage
 
+##### Run locally </>
+  - clone repo, navigate into folder, run **yarn** then **yarn start_dev** or **yarn start**
+
+##### Run with Docker </>
+  - clone repo, navigate into folder, run **docker-compose up**
+  - exit with ctrl + c then **docker-compose down**
+  
 
 Enjoy!
